@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /verify-email
-
-Sitemap: https://groupspend.vercel.app/sitemap.xml
