@@ -74,6 +74,19 @@ if (process.env.NODE_ENV !== 'test') {
   await connectDB(process.env.MONGODB_URI);
   const port = process.env.PORT || 5000;
   server.listen(port, () => console.log(`API running on port ${port}`));
+
+  // Self-ping to prevent Render free tier from sleeping after 15m of inactivity
+  const renderUrl = process.env.RENDER_EXTERNAL_URL || (process.env.NODE_ENV === 'production' ? 'https://groupspend-1.onrender.com' : null);
+  if (renderUrl) {
+    const PING_INTERVAL = 13 * 60 * 1000; // 13 minutes
+    setInterval(async () => {
+      try {
+        await fetch(`${renderUrl}/api/health`);
+      } catch (_e) {
+        // Suppress ping errors
+      }
+    }, PING_INTERVAL);
+  }
 }
 
 export default app;
