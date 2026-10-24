@@ -22,8 +22,7 @@ const notificationSchema = new mongoose.Schema({
       'settlement_rejected',
       'settlement_completed',
       'member_added',
-      'member_removed',
-      'group_renamed'
+      'member_removed'
     ]
   },
   actorId: {
